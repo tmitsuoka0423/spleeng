@@ -13,8 +13,12 @@ export class SpleengServerlessStack extends cdk.Stack {
       code: lambda.Code.asset("lambda/line-bot-webhook"),
     });
 
-    new apigateway.LambdaRestApi(this, "spleeng-line-bot-webhook-api", {
+    const api = new apigateway.LambdaRestApi(this, "spleeng-line-bot-webhook-api", {
       handler: lineBotWebhook,
+      proxy: false,
     });
+
+    const webhook = api.root.addResource('webhook');
+    webhook.addMethod('POST');
   }
 }
