@@ -10,7 +10,7 @@ export class SpleengServerlessStack extends cdk.Stack {
       functionName: "line-bot-webhook",
       runtime: lambda.Runtime.NODEJS_12_X,
       handler: "index.handler",
-      code: lambda.Code.asset("lambda"),
+      code: lambda.Code.asset("lambda/line-bot-webhook"),
     });
   }
 }
