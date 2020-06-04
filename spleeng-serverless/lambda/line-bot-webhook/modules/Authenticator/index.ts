@@ -1,14 +1,16 @@
-const crypto = require('crypto');
-
-const channelSecret = '...'; // Channel secret string
-const body = '...'; // Request body string
-const signature = crypto
-  .createHmac('SHA256', channelSecret)
-  .update(body).digest('base64');
-// Compare X-Line-Signature request header and the signature
+import * as crypto from "crypto";
 
 export default class Authenticator {
-  public static verify(signature: string): boolean {
-    return true;
+  static verify(xLineSignature: string, body: string): boolean {
+    if (!xLineSignature || !body) {
+      return false;
+    }
+
+    const signature = crypto
+      .createHmac("SHA256", process.env.LINE_CHANNEL_SECRET)
+      .update(body)
+      .digest("base64");
+
+    return xLineSignature === signature;
   }
 }
