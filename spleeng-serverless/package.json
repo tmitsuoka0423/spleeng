@@ -24,6 +24,7 @@
     "@aws-cdk/aws-apigateway": "^1.43.0",
     "@aws-cdk/aws-lambda": "^1.42.1",
     "@aws-cdk/core": "1.42.1",
+    "@line/bot-sdk": "^6.8.4",
     "source-map-support": "^0.5.16"
   }
 }
