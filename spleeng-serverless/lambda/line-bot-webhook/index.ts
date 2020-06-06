@@ -19,8 +19,9 @@ export async function handler(event: any) {
     channelSecret: process.env.LINE_CHANNEL_SECRET,
   });
 
-  const messages = await EventHandlerFactory.getHandler(body).getMessages();
-  await client.replyMessage(body.events[0].replyToken, messages);
+  const webhookEvent = body.events[0];
+  const messages = await EventHandlerFactory.getHandler(webhookEvent).getMessages();
+  await client.replyMessage(webhookEvent.replyToken, messages);
 
   return {
     statusCode: 200,
