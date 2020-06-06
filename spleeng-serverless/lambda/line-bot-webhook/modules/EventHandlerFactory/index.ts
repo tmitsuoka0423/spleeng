@@ -1,18 +1,19 @@
-import { WebhookEvent, MessageEvent } from "@line/bot-sdk";
+import { WebhookEvent, MessageEvent, LocationEventMessage } from "@line/bot-sdk";
 import EventHandlerInterface from "../EventHandler/EventHandlerInterface";
 import MessageEventHandler from "../EventHandler/MessageEventHandler";
 
 export default class EventHandlerFactory {
   static getHandler(webhookEvent: WebhookEvent): EventHandlerInterface {
     let eventHandler = null;
-    if ((webhookEvent as MessageEvent).message) {
-      eventHandler = new MessageEventHandler((webhookEvent as MessageEvent).message);
+    
+    switch (webhookEvent.type) {
+      case "message":
+        eventHandler = new MessageEventHandler((webhookEvent as MessageEvent).message);
+        break;
+      default:
+        throw new Error('Illegal webhook event. ' + JSON.stringify(eventHandler));
     }
-
-    if (!eventHandler) {
-      throw new Error('Illegal webhook event. ' + JSON.stringify(eventHandler));
-    }
-
+    
     return eventHandler;
   }
 }

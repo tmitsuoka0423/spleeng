@@ -21,7 +21,9 @@ export async function handler(event: any) {
 
   const webhookEvent = body.events[0];
   const messages = await EventHandlerFactory.getHandler(webhookEvent).getMessages();
-  await client.replyMessage(webhookEvent.replyToken, messages);
+  if (messages) {
+    await client.replyMessage(webhookEvent.replyToken, messages);
+  }
 
   return {
     statusCode: 200,

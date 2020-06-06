@@ -1,11 +1,11 @@
-import { Message, EventMessage, TextEventMessage } from "@line/bot-sdk";
+import { Message, EventMessage, TextEventMessage, LocationEventMessage } from "@line/bot-sdk";
 import EventHandlerInterface from "../EventHandlerInterface";
 
 export default class MessageEventHandler implements EventHandlerInterface {
-  private textEventMessage: TextEventMessage;
+  private eventMessage: EventMessage;
   
   constructor(eventMessage: EventMessage) {
-    this.textEventMessage = <TextEventMessage>eventMessage;
+    this.eventMessage = eventMessage;
   }
 
   getMessages(): Message {
@@ -14,10 +14,16 @@ export default class MessageEventHandler implements EventHandlerInterface {
       text: "",
     }
 
-    switch (true) {
-      case /睡眠予報/.test(this.textEventMessage.text):
-        message.text = '今日は蒸し暑い夜になるでしょう。タオルケットをかけて寝ましょう。'
-        break;
+    if (this.eventMessage.type === 'text') {
+      const textEventMessage = this.eventMessage as TextEventMessage;
+      switch (true) {
+        case /睡眠予報/.test(textEventMessage.text):
+          message.text = '今日は蒸し暑い夜になるでしょう。タオルケットをかけて寝ましょう。'
+          break;
+      }
+    } else if (this.eventMessage.type === 'location') {
+      const locationEventMessage = this.eventMessage as LocationEventMessage;
+      
     }
 
     return message;
