@@ -2,7 +2,7 @@ import { DynamoDB } from "aws-sdk";
 import EntityBase from "../../Entity/EntityBase";
 
 export default abstract class DaoBase {
-  protected documentClient;
+  protected documentClient: any;
 
   constructor() {
     this.documentClient = new DynamoDB.DocumentClient();
