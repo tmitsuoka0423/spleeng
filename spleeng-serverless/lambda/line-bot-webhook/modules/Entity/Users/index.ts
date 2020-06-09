@@ -8,6 +8,12 @@ export default class Users {
   private name: string;
   private location: LocationInterface;
 
+  constructor(lineId: string, name: string, location: LocationInterface) {
+    this.lineId = lineId;
+    this.name = name;
+    this.location = location;
+  }
+
   public getLineId() {
     return this.lineId;
   }
