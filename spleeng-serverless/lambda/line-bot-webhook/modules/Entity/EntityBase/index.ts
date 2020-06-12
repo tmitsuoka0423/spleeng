@@ -9,4 +9,6 @@ export default abstract class EntityBase {
   public getUpdated(): string {
     return this.updated;
   }
+
+  abstract getItem(): object;
 }

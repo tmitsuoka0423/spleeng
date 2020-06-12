@@ -8,5 +8,6 @@ export default abstract class DaoBase {
     this.documentClient = new DynamoDB.DocumentClient();
   }
 
-  abstract get(partitionKey: string, sortKey?: string): EntityBase;
+  abstract async get(partitionKey: string, sortKey?: string): Promise<EntityBase>;
+  abstract async put(entity: EntityBase): Promise<void>;
 }
