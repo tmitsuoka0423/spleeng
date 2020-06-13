@@ -23,7 +23,7 @@ export default class MessageEventHandler implements EventHandlerInterface {
       }
     } else if (this.eventMessage.type === 'location') {
       const locationEventMessage = this.eventMessage as LocationEventMessage;
-      
+      message.text = '位置情報を登録しました。\nお住まいの地域の睡眠天気を利用することができます。';
     }
 
     return message;
